@@ -62,4 +62,27 @@ class PdfReport extends ReportGenerator
 
       \Storage::put($filePath, $content);
 	}
+
+	public function view()
+	{
+		$headers = $this->headers;
+		$query = $this->query;
+		$columns = $this->columns;
+		$limit = $this->limit;
+		$groupByArr = $this->groupByArr;
+		$orientation = $this->orientation;
+		$editColumns = $this->editColumns;
+		$showTotalColumns = $this->showTotalColumns;
+		$styles = $this->styles;
+		$showHeader = $this->showHeader;
+		$showMeta = $this->showMeta;
+		$showNumColumn = $this->showNumColumn;
+		$applyFlush = $this->applyFlush;
+
+		if ($this->withoutManipulation) {
+			return view('laravel-report-generator::without-manipulation-pdf-template', compact('headers', 'columns', 'showTotalColumns', 'query', 'limit', 'groupByArr', 'orientation', 'showHeader', 'showMeta', 'applyFlush', 'showNumColumn'));
+		} else {
+			return view('laravel-report-generator::general-pdf-template', compact('headers', 'columns', 'editColumns', 'showTotalColumns', 'styles', 'query', 'limit', 'groupByArr', 'orientation', 'showHeader', 'showMeta', 'applyFlush', 'showNumColumn'));
+		}
+	}
 }
